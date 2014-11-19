@@ -1,0 +1,4 @@
+megaloman:
+    resource: "@MegalomanBundle/Resources/config/routing.yml"
+    prefix:   /
+

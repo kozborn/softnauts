@@ -1,0 +1,3 @@
+megaloman_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: MegalomanBundle:Default:index }

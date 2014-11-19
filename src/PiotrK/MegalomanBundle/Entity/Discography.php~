@@ -1,0 +1,44 @@
+<?php
+
+namespace PiotrK\MegalomanBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ *
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="discography")
+ */
+
+class Discography {
+  /**
+   * @ORM\Column(type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+  protected $id;
+
+  /**
+    * @ORM\OneToOne(targetEntity="Megaloman")
+  */
+  protected $owner;
+
+  /**
+   * @ORM\OneToMany(targetEntity="Album", mappedBy="discography")
+   */
+  protected $albums;
+
+  public function __construct() {
+    $this->albums = new ArrayCollection();
+  }
+
+  /**
+   * Get id
+   *
+   * @return integer
+   */
+  public function getId() {
+    return $this->id;
+  }
+}
