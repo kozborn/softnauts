@@ -1,0 +1,30 @@
+album:
+    path:     /
+    defaults: { _controller: "MegalomanBundle:Album:index" }
+
+album_show:
+    path:     /{id}/show
+    defaults: { _controller: "MegalomanBundle:Album:show" }
+
+album_new:
+    path:     /new
+    defaults: { _controller: "MegalomanBundle:Album:new" }
+
+album_create:
+    path:     /create
+    defaults: { _controller: "MegalomanBundle:Album:create" }
+    requirements: { _method: post }
+
+album_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MegalomanBundle:Album:edit" }
+
+album_update:
+    path:     /{id}/update
+    defaults: { _controller: "MegalomanBundle:Album:update" }
+    requirements: { _method: post|put }
+
+album_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MegalomanBundle:Album:delete" }
+    requirements: { _method: post|delete }

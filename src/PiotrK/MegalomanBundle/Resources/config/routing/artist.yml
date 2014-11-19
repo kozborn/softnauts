@@ -1,0 +1,30 @@
+artist:
+    path:     /
+    defaults: { _controller: "MegalomanBundle:Artist:index" }
+
+artist_show:
+    path:     /{id}/show
+    defaults: { _controller: "MegalomanBundle:Artist:show" }
+
+artist_new:
+    path:     /new
+    defaults: { _controller: "MegalomanBundle:Artist:new" }
+
+artist_create:
+    path:     /create
+    defaults: { _controller: "MegalomanBundle:Artist:create" }
+    requirements: { _method: post }
+
+artist_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MegalomanBundle:Artist:edit" }
+
+artist_update:
+    path:     /{id}/update
+    defaults: { _controller: "MegalomanBundle:Artist:update" }
+    requirements: { _method: post|put }
+
+artist_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MegalomanBundle:Artist:delete" }
+    requirements: { _method: post|delete }

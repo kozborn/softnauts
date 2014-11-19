@@ -1,3 +1,19 @@
+megaloman_artist:
+    resource: "@MegalomanBundle/Resources/config/routing/artist.yml"
+    prefix:   /artist
+
+megaloman_album:
+    resource: "@MegalomanBundle/Resources/config/routing/album.yml"
+    prefix:   /album
+
+megaloman_discography:
+    resource: "@MegalomanBundle/Resources/config/routing/discography.yml"
+    prefix:   /discography
+
+megaloman_megaloman:
+    resource: "@MegalomanBundle/Resources/config/routing/megaloman.yml"
+    prefix:   /megaloman
+
 megaloman_homepage:
     path:     /hello/{name}
     defaults: { _controller: MegalomanBundle:Default:index }
