@@ -23,8 +23,3 @@ discography_update:
     path:     /{id}/update
     defaults: { _controller: "MegalomanBundle:Discography:update" }
     requirements: { _method: post|put }
-
-discography_delete:
-    path:     /{id}/delete
-    defaults: { _controller: "MegalomanBundle:Discography:delete" }
-    requirements: { _method: post|delete }

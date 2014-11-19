@@ -2,8 +2,8 @@
 
 {% block title "Hello " ~ name %}
 
-{% block content %}
+  {% block content %}
     <h1 class="title">Hello {{ name }} secured for Admins only!</h1>
-{% endblock %}
+  {% endblock %}
 
-{% set code = code(_self) %}
+  {% set code = code(_self) %}

@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity
  * @ORM\Table(name="artist")
-  * @ORM\Entity(repositoryClass="PiotrK\MegalomanBundle\Entity\ArtistRepository")
+ * @ORM\Entity(repositoryClass="PiotrK\MegalomanBundle\Entity\ArtistRepository")
  */
 class Artist {
 
@@ -34,101 +34,93 @@ class Artist {
    */
   protected $albums;
 
-
-  public function __construct(){
+  public function __construct() {
     $this->albums = new ArrayCollection();
   }
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+  /**
+   * Get id
+   *
+   * @return integer
+   */
+  public function getId() {
+    return $this->id;
+  }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return Artist
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
+  /**
+   * Set name
+   *
+   * @param string $name
+   * @return Artist
+   */
+  public function setName($name) {
+    $this->name = $name;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
+  /**
+   * Get name
+   *
+   * @return string 
+   */
+  public function getName() {
+    return $this->name;
+  }
 
-    /**
-     * Set lastName
-     *
-     * @param string $lastName
-     * @return Artist
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
+  /**
+   * Set lastName
+   *
+   * @param string $lastName
+   * @return Artist
+   */
+  public function setLastName($lastName) {
+    $this->lastName = $lastName;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get lastName
-     *
-     * @return string 
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
+  /**
+   * Get lastName
+   *
+   * @return string 
+   */
+  public function getLastName() {
+    return $this->lastName;
+  }
 
-    /**
-     * Add albums
-     *
-     * @param \PiotrK\MegalomanBundle\Entity\Album $albums
-     * @return Artist
-     */
-    public function addAlbum(\PiotrK\MegalomanBundle\Entity\Album $albums)
-    {
-        $this->albums[] = $albums;
+  /**
+   * Add albums
+   *
+   * @param \PiotrK\MegalomanBundle\Entity\Album $albums
+   * @return Artist
+   */
+  public function addAlbum(\PiotrK\MegalomanBundle\Entity\Album $albums) {
+    $this->albums[] = $albums;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Remove albums
-     *
-     * @param \PiotrK\MegalomanBundle\Entity\Album $albums
-     */
-    public function removeAlbum(\PiotrK\MegalomanBundle\Entity\Album $albums)
-    {
-        $this->albums->removeElement($albums);
-    }
+  /**
+   * Remove albums
+   *
+   * @param \PiotrK\MegalomanBundle\Entity\Album $albums
+   */
+  public function removeAlbum(\PiotrK\MegalomanBundle\Entity\Album $albums) {
+    $this->albums->removeElement($albums);
+  }
 
-    /**
-     * Get albums
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getAlbums()
-    {
-        return $this->albums;
-    }
+  /**
+   * Get albums
+   *
+   * @return \Doctrine\Common\Collections\Collection 
+   */
+  public function getAlbums() {
+    return $this->albums;
+  }
 
-    public function __toString(){
-      return $this->name." ".$this->lastName;
-    }
+  public function __toString() {
+    return $this->name . " " . $this->lastName;
+  }
+
 }

@@ -6,19 +6,18 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Acme\DemoBundle\Twig\Extension\DemoExtension;
 
-class ControllerListener
-{
-    protected $extension;
+class ControllerListener {
 
-    public function __construct(DemoExtension $extension)
-    {
-        $this->extension = $extension;
-    }
+  protected $extension;
 
-    public function onKernelController(FilterControllerEvent $event)
-    {
-        if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()) {
-            $this->extension->setController($event->getController());
-        }
+  public function __construct(DemoExtension $extension) {
+    $this->extension = $extension;
+  }
+
+  public function onKernelController(FilterControllerEvent $event) {
+    if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()) {
+      $this->extension->setController($event->getController());
     }
+  }
+
 }

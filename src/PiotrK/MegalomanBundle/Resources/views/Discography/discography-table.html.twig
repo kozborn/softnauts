@@ -1,5 +1,5 @@
 {% if discography %}
-<table class="table">
+  <table class="table">
     <thead>
       <tr>
         <th>Id</th>
@@ -11,12 +11,16 @@
       {% for album in discography.albums %}
         <tr>
           <td>{{album.id}}</td>
-          <td>{{album.name}}</td>
+          <td>
+            <a href="{{path('album_show', {'id': album.id})}}">{{ album.name }}</a>
+          </td>
           <td>
             <ul class="list-unstyled">
               {% for artist in album.artists %}
-                <li>{{artist}}</li>
-              {% endfor %}
+                <li>
+                  <a href="{{path('artist_show', {'id':artist.id})}}">{{artist}}</a>
+                </li>
+                {% endfor %}
             </ul>
           </td>
         </tr>

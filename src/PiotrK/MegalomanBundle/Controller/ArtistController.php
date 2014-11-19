@@ -4,7 +4,6 @@ namespace PiotrK\MegalomanBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use PiotrK\MegalomanBundle\Entity\Artist;
 use PiotrK\MegalomanBundle\Form\ArtistType;
 
@@ -12,213 +11,206 @@ use PiotrK\MegalomanBundle\Form\ArtistType;
  * Artist controller.
  *
  */
-class ArtistController extends Controller
-{
+class ArtistController extends Controller {
 
-    /**
-     * Lists all Artist entities.
-     *
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
+  /**
+   * Lists all Artist entities.
+   *
+   */
+  public function indexAction() {
+    $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('MegalomanBundle:Artist')->findAll();
+    $entities = $em->getRepository('MegalomanBundle:Artist')->findAll();
 
-        return $this->render('MegalomanBundle:Artist:index.html.twig', array(
-            'entities' => $entities,
-        ));
-    }
-    /**
-     * Creates a new Artist entity.
-     *
-     */
-    public function createAction(Request $request)
-    {
-        $entity = new Artist();
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
+    return $this->render('MegalomanBundle:Artist:index.html.twig', array(
+                'entities' => $entities,
+    ));
+  }
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+  /**
+   * Creates a new Artist entity.
+   *
+   */
+  public function createAction(Request $request) {
+    $entity = new Artist();
+    $form = $this->createCreateForm($entity);
+    $form->handleRequest($request);
 
-            return $this->redirect($this->generateUrl('artist_show', array('id' => $entity->getId())));
-        }
+    if ($form->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($entity);
+      $em->flush();
 
-        return $this->render('MegalomanBundle:Artist:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+      return $this->redirect($this->generateUrl('artist_show', array('id' => $entity->getId())));
     }
 
-    /**
-     * Creates a form to create a Artist entity.
-     *
-     * @param Artist $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(Artist $entity)
-    {
-        $form = $this->createForm(new ArtistType(), $entity, array(
-            'action' => $this->generateUrl('artist_create'),
-            'method' => 'POST',
-        ));
+    return $this->render('MegalomanBundle:Artist:new.html.twig', array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+    ));
+  }
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+  /**
+   * Creates a form to create a Artist entity.
+   *
+   * @param Artist $entity The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createCreateForm(Artist $entity) {
+    $form = $this->createForm(new ArtistType(), $entity, array(
+        'action' => $this->generateUrl('artist_create'),
+        'method' => 'POST',
+    ));
 
-        return $form;
+    $form->add('submit', 'submit', array('label' => 'Utwórz'));
+
+    return $form;
+  }
+
+  /**
+   * Displays a form to create a new Artist entity.
+   *
+   */
+  public function newAction() {
+    $entity = new Artist();
+    $form = $this->createCreateForm($entity);
+
+    return $this->render('MegalomanBundle:Artist:new.html.twig', array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+    ));
+  }
+
+  /**
+   * Finds and displays a Artist entity.
+   *
+   */
+  public function showAction($id) {
+    $em = $this->getDoctrine()->getManager();
+
+    $entity = $em->getRepository('MegalomanBundle:Artist')->find($id);
+
+    if (!$entity) {
+      throw $this->createNotFoundException('Unable to find Artist entity.');
     }
 
-    /**
-     * Displays a form to create a new Artist entity.
-     *
-     */
-    public function newAction()
-    {
-        $entity = new Artist();
-        $form   = $this->createCreateForm($entity);
+    $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('MegalomanBundle:Artist:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+    return $this->render('MegalomanBundle:Artist:show.html.twig', array(
+                'entity' => $entity,
+                'delete_form' => $deleteForm->createView(),
+    ));
+  }
+
+  /**
+   * Displays a form to edit an existing Artist entity.
+   *
+   */
+  public function editAction($id) {
+    $em = $this->getDoctrine()->getManager();
+
+    $entity = $em->getRepository('MegalomanBundle:Artist')->find($id);
+
+    if (!$entity) {
+      throw $this->createNotFoundException('Unable to find Artist entity.');
     }
 
-    /**
-     * Finds and displays a Artist entity.
-     *
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
+    $editForm = $this->createEditForm($entity);
+    $deleteForm = $this->createDeleteForm($id);
 
-        $entity = $em->getRepository('MegalomanBundle:Artist')->find($id);
+    return $this->render('MegalomanBundle:Artist:edit.html.twig', array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+    ));
+  }
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Artist entity.');
-        }
+  /**
+   * Creates a form to edit a Artist entity.
+   *
+   * @param Artist $entity The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createEditForm(Artist $entity) {
+    $form = $this->createForm(new ArtistType(), $entity, array(
+        'action' => $this->generateUrl('artist_update', array('id' => $entity->getId())),
+        'method' => 'PUT',
+    ));
 
-        $deleteForm = $this->createDeleteForm($id);
+    $form->add('submit', 'submit', array('label' => 'Zapisz'));
 
-        return $this->render('MegalomanBundle:Artist:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        ));
+    return $form;
+  }
+
+  /**
+   * Edits an existing Artist entity.
+   *
+   */
+  public function updateAction(Request $request, $id) {
+    $em = $this->getDoctrine()->getManager();
+
+    $entity = $em->getRepository('MegalomanBundle:Artist')->find($id);
+
+    if (!$entity) {
+      throw $this->createNotFoundException('Unable to find Artist entity.');
     }
 
-    /**
-     * Displays a form to edit an existing Artist entity.
-     *
-     */
-    public function editAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
+    $deleteForm = $this->createDeleteForm($id);
+    $editForm = $this->createEditForm($entity);
+    $editForm->handleRequest($request);
 
-        $entity = $em->getRepository('MegalomanBundle:Artist')->find($id);
+    if ($editForm->isValid()) {
+      $em->flush();
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Artist entity.');
-        }
-
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('MegalomanBundle:Artist:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+      return $this->redirect($this->generateUrl('artist_edit', array('id' => $id)));
     }
 
-    /**
-    * Creates a form to edit a Artist entity.
-    *
-    * @param Artist $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Artist $entity)
-    {
-        $form = $this->createForm(new ArtistType(), $entity, array(
-            'action' => $this->generateUrl('artist_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+    return $this->render('MegalomanBundle:Artist:edit.html.twig', array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+    ));
+  }
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+  /**
+   * Deletes a Artist entity.
+   *
+   */
+  public function deleteAction(Request $request, $id) {
+    $form = $this->createDeleteForm($id);
+    $form->handleRequest($request);
 
-        return $form;
-    }
-    /**
-     * Edits an existing Artist entity.
-     *
-     */
-    public function updateAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
+    if ($form->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      $entity = $em->getRepository('MegalomanBundle:Artist')->find($id);
 
-        $entity = $em->getRepository('MegalomanBundle:Artist')->find($id);
+      if (!$entity) {
+        throw $this->createNotFoundException('Unable to find Artist entity.');
+      }
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Artist entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isValid()) {
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('artist_edit', array('id' => $id)));
-        }
-
-        return $this->render('MegalomanBundle:Artist:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-    /**
-     * Deletes a Artist entity.
-     *
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('MegalomanBundle:Artist')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Artist entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('artist'));
+      $em->remove($entity);
+      $em->flush();
     }
 
-    /**
-     * Creates a form to delete a Artist entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('artist_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
-    }
+    return $this->redirect($this->generateUrl('artist'));
+  }
+
+  /**
+   * Creates a form to delete a Artist entity by id.
+   *
+   * @param mixed $id The entity id
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createDeleteForm($id) {
+    return $this->createFormBuilder()
+                    ->setAction($this->generateUrl('artist_delete', array('id' => $id)))
+                    ->setMethod('DELETE')
+                    ->add('submit', 'submit', array('label' => 'Usuń'))
+                    ->getForm()
+    ;
+  }
+
 }

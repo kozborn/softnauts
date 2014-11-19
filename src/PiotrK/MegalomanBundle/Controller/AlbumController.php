@@ -4,7 +4,6 @@ namespace PiotrK\MegalomanBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use PiotrK\MegalomanBundle\Entity\Album;
 use PiotrK\MegalomanBundle\Form\AlbumType;
 
@@ -12,213 +11,206 @@ use PiotrK\MegalomanBundle\Form\AlbumType;
  * Album controller.
  *
  */
-class AlbumController extends Controller
-{
+class AlbumController extends Controller {
 
-    /**
-     * Lists all Album entities.
-     *
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
+  /**
+   * Lists all Album entities.
+   *
+   */
+  public function indexAction() {
+    $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('MegalomanBundle:Album')->findAll();
+    $entities = $em->getRepository('MegalomanBundle:Album')->findAll();
 
-        return $this->render('MegalomanBundle:Album:index.html.twig', array(
-            'entities' => $entities,
-        ));
-    }
-    /**
-     * Creates a new Album entity.
-     *
-     */
-    public function createAction(Request $request)
-    {
-        $entity = new Album();
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
+    return $this->render('MegalomanBundle:Album:index.html.twig', array(
+                'entities' => $entities,
+    ));
+  }
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+  /**
+   * Creates a new Album entity.
+   *
+   */
+  public function createAction(Request $request) {
+    $entity = new Album();
+    $form = $this->createCreateForm($entity);
+    $form->handleRequest($request);
 
-            return $this->redirect($this->generateUrl('album_show', array('id' => $entity->getId())));
-        }
+    if ($form->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($entity);
+      $em->flush();
 
-        return $this->render('MegalomanBundle:Album:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+      return $this->redirect($this->generateUrl('album_show', array('id' => $entity->getId())));
     }
 
-    /**
-     * Creates a form to create a Album entity.
-     *
-     * @param Album $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(Album $entity)
-    {
-        $form = $this->createForm(new AlbumType(), $entity, array(
-            'action' => $this->generateUrl('album_create'),
-            'method' => 'POST',
-        ));
+    return $this->render('MegalomanBundle:Album:new.html.twig', array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+    ));
+  }
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+  /**
+   * Creates a form to create a Album entity.
+   *
+   * @param Album $entity The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createCreateForm(Album $entity) {
+    $form = $this->createForm(new AlbumType(), $entity, array(
+        'action' => $this->generateUrl('album_create'),
+        'method' => 'POST',
+    ));
 
-        return $form;
+    $form->add('submit', 'submit', array('label' => 'Utwórz'));
+
+    return $form;
+  }
+
+  /**
+   * Displays a form to create a new Album entity.
+   *
+   */
+  public function newAction() {
+    $entity = new Album();
+    $form = $this->createCreateForm($entity);
+
+    return $this->render('MegalomanBundle:Album:new.html.twig', array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+    ));
+  }
+
+  /**
+   * Finds and displays a Album entity.
+   *
+   */
+  public function showAction($id) {
+    $em = $this->getDoctrine()->getManager();
+
+    $entity = $em->getRepository('MegalomanBundle:Album')->find($id);
+
+    if (!$entity) {
+      throw $this->createNotFoundException('Unable to find Album entity.');
     }
 
-    /**
-     * Displays a form to create a new Album entity.
-     *
-     */
-    public function newAction()
-    {
-        $entity = new Album();
-        $form   = $this->createCreateForm($entity);
+    $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('MegalomanBundle:Album:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+    return $this->render('MegalomanBundle:Album:show.html.twig', array(
+                'entity' => $entity,
+                'delete_form' => $deleteForm->createView(),
+    ));
+  }
+
+  /**
+   * Displays a form to edit an existing Album entity.
+   *
+   */
+  public function editAction($id) {
+    $em = $this->getDoctrine()->getManager();
+
+    $entity = $em->getRepository('MegalomanBundle:Album')->find($id);
+
+    if (!$entity) {
+      throw $this->createNotFoundException('Unable to find Album entity.');
     }
 
-    /**
-     * Finds and displays a Album entity.
-     *
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
+    $editForm = $this->createEditForm($entity);
+    $deleteForm = $this->createDeleteForm($id);
 
-        $entity = $em->getRepository('MegalomanBundle:Album')->find($id);
+    return $this->render('MegalomanBundle:Album:edit.html.twig', array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+    ));
+  }
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Album entity.');
-        }
+  /**
+   * Creates a form to edit a Album entity.
+   *
+   * @param Album $entity The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createEditForm(Album $entity) {
+    $form = $this->createForm(new AlbumType(), $entity, array(
+        'action' => $this->generateUrl('album_update', array('id' => $entity->getId())),
+        'method' => 'PUT',
+    ));
 
-        $deleteForm = $this->createDeleteForm($id);
+    $form->add('submit', 'submit', array('label' => 'Zapisz'));
 
-        return $this->render('MegalomanBundle:Album:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        ));
+    return $form;
+  }
+
+  /**
+   * Edits an existing Album entity.
+   *
+   */
+  public function updateAction(Request $request, $id) {
+    $em = $this->getDoctrine()->getManager();
+
+    $entity = $em->getRepository('MegalomanBundle:Album')->find($id);
+
+    if (!$entity) {
+      throw $this->createNotFoundException('Unable to find Album entity.');
     }
 
-    /**
-     * Displays a form to edit an existing Album entity.
-     *
-     */
-    public function editAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
+    $deleteForm = $this->createDeleteForm($id);
+    $editForm = $this->createEditForm($entity);
+    $editForm->handleRequest($request);
 
-        $entity = $em->getRepository('MegalomanBundle:Album')->find($id);
+    if ($editForm->isValid()) {
+      $em->flush();
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Album entity.');
-        }
-
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('MegalomanBundle:Album:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+      return $this->redirect($this->generateUrl('album_edit', array('id' => $id)));
     }
 
-    /**
-    * Creates a form to edit a Album entity.
-    *
-    * @param Album $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Album $entity)
-    {
-        $form = $this->createForm(new AlbumType(), $entity, array(
-            'action' => $this->generateUrl('album_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+    return $this->render('MegalomanBundle:Album:edit.html.twig', array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+    ));
+  }
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+  /**
+   * Deletes a Album entity.
+   *
+   */
+  public function deleteAction(Request $request, $id) {
+    $form = $this->createDeleteForm($id);
+    $form->handleRequest($request);
 
-        return $form;
-    }
-    /**
-     * Edits an existing Album entity.
-     *
-     */
-    public function updateAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
+    if ($form->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      $entity = $em->getRepository('MegalomanBundle:Album')->find($id);
 
-        $entity = $em->getRepository('MegalomanBundle:Album')->find($id);
+      if (!$entity) {
+        throw $this->createNotFoundException('Unable to find Album entity.');
+      }
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Album entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isValid()) {
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('album_edit', array('id' => $id)));
-        }
-
-        return $this->render('MegalomanBundle:Album:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-    /**
-     * Deletes a Album entity.
-     *
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('MegalomanBundle:Album')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Album entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('album'));
+      $em->remove($entity);
+      $em->flush();
     }
 
-    /**
-     * Creates a form to delete a Album entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('album_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
-    }
+    return $this->redirect($this->generateUrl('album'));
+  }
+
+  /**
+   * Creates a form to delete a Album entity by id.
+   *
+   * @param mixed $id The entity id
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createDeleteForm($id) {
+    return $this->createFormBuilder()
+                    ->setAction($this->generateUrl('album_delete', array('id' => $id)))
+                    ->setMethod('DELETE')
+                    ->add('submit', 'submit', array('label' => 'Usuń'))
+                    ->getForm()
+    ;
+  }
+
 }

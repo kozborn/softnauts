@@ -9,14 +9,14 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="megaloman")
-* @ORM\Entity(repositoryClass="PiotrK\MegalomanBundle\Entity\MegalomanRepository")
+ * @ORM\Entity(repositoryClass="PiotrK\MegalomanBundle\Entity\MegalomanRepository")
  */
-
 class Megaloman {
 
-  public function __construct(){
+  public function __construct() {
     $this->discography = new Discography();
   }
+
   /**
    * @ORM\Column(type="integer")
    * @ORM\Id
@@ -25,8 +25,8 @@ class Megaloman {
   protected $id;
 
   /**
-     * @ORM\OneToOne(targetEntity="Discography", inversedBy="owner", cascade={"all"})
-  */
+   * @ORM\OneToOne(targetEntity="Discography", inversedBy="owner", cascade={"all"})
+   */
   protected $discography;
 
   /**
@@ -51,7 +51,7 @@ class Megaloman {
    * @param string  $name
    * @return Megaloman
    */
-  public function setName( $name ) {
+  public function setName($name) {
     $this->name = $name;
 
     return $this;
@@ -66,30 +66,29 @@ class Megaloman {
     return $this->name;
   }
 
-    /**
-     * Set discography
-     *
-     * @param \PiotrK\MegalomanBundle\Entity\Discography $discography
-     * @return Megaloman
-     */
-    public function setDiscography(\PiotrK\MegalomanBundle\Entity\Discography $discography = null)
-    {
-        $this->discography = $discography;
+  /**
+   * Set discography
+   *
+   * @param \PiotrK\MegalomanBundle\Entity\Discography $discography
+   * @return Megaloman
+   */
+  public function setDiscography(\PiotrK\MegalomanBundle\Entity\Discography $discography = null) {
+    $this->discography = $discography;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get discography
-     *
-     * @return \PiotrK\MegalomanBundle\Entity\Discography 
-     */
-    public function getDiscography()
-    {
-        return $this->discography;
-    }
+  /**
+   * Get discography
+   *
+   * @return \PiotrK\MegalomanBundle\Entity\Discography 
+   */
+  public function getDiscography() {
+    return $this->discography;
+  }
 
-  public function __toString(){
+  public function __toString() {
     return $this->name;
   }
+
 }

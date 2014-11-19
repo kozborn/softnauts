@@ -12,59 +12,55 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * @Route("/demo/secured")
  */
-class SecuredController extends Controller
-{
-    /**
-     * @Route("/login", name="_demo_login")
-     * @Template()
-     */
-    public function loginAction(Request $request)
-    {
-        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-        } else {
-            $error = $request->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
-        }
+class SecuredController extends Controller {
 
-        return array(
-            'last_username' => $request->getSession()->get(SecurityContext::LAST_USERNAME),
-            'error'         => $error,
-        );
+  /**
+   * @Route("/login", name="_demo_login")
+   * @Template()
+   */
+  public function loginAction(Request $request) {
+    if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+      $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+    } else {
+      $error = $request->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
     }
 
-    /**
-     * @Route("/login_check", name="_demo_security_check")
-     */
-    public function securityCheckAction()
-    {
-        // The security layer will intercept this request
-    }
+    return array(
+        'last_username' => $request->getSession()->get(SecurityContext::LAST_USERNAME),
+        'error' => $error,
+    );
+  }
 
-    /**
-     * @Route("/logout", name="_demo_logout")
-     */
-    public function logoutAction()
-    {
-        // The security layer will intercept this request
-    }
+  /**
+   * @Route("/login_check", name="_demo_security_check")
+   */
+  public function securityCheckAction() {
+    // The security layer will intercept this request
+  }
 
-    /**
-     * @Route("/hello", defaults={"name"="World"}),
-     * @Route("/hello/{name}", name="_demo_secured_hello")
-     * @Template()
-     */
-    public function helloAction($name)
-    {
-        return array('name' => $name);
-    }
+  /**
+   * @Route("/logout", name="_demo_logout")
+   */
+  public function logoutAction() {
+    // The security layer will intercept this request
+  }
 
-    /**
-     * @Route("/hello/admin/{name}", name="_demo_secured_hello_admin")
-     * @Security("is_granted('ROLE_ADMIN')")
-     * @Template()
-     */
-    public function helloadminAction($name)
-    {
-        return array('name' => $name);
-    }
+  /**
+   * @Route("/hello", defaults={"name"="World"}),
+   * @Route("/hello/{name}", name="_demo_secured_hello")
+   * @Template()
+   */
+  public function helloAction($name) {
+    return array('name' => $name);
+  }
+
+  /**
+   * @Route("/hello/admin/{name}", name="_demo_secured_hello_admin")
+   * @Security("is_granted('ROLE_ADMIN')")
+   * @Template()
+   */
+  public function helloadminAction($name) {
+    return array('name' => $name);
+  }
+
 }

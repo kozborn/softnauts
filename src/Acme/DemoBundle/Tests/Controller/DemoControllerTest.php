@@ -4,42 +4,41 @@ namespace Acme\DemoBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DemoControllerTest extends WebTestCase
-{
-    public function testIndex()
-    {
-        $client = static::createClient();
+class DemoControllerTest extends WebTestCase {
 
-        $crawler = $client->request('GET', '/demo/hello/Fabien');
+  public function testIndex() {
+    $client = static::createClient();
 
-        $this->assertGreaterThan(0, $crawler->filter('html:contains("Hello Fabien")')->count());
-    }
+    $crawler = $client->request('GET', '/demo/hello/Fabien');
 
-    public function testSecureSection()
-    {
-        $client = static::createClient();
+    $this->assertGreaterThan(0, $crawler->filter('html:contains("Hello Fabien")')->count());
+  }
 
-        // goes to the secure page
-        $crawler = $client->request('GET', '/demo/secured/hello/World');
+  public function testSecureSection() {
+    $client = static::createClient();
 
-        // redirects to the login page
-        $crawler = $client->followRedirect();
+    // goes to the secure page
+    $crawler = $client->request('GET', '/demo/secured/hello/World');
 
-        // submits the login form
-        $form = $crawler->selectButton('Login')->form(array('_username' => 'admin', '_password' => 'adminpass'));
-        $client->submit($form);
+    // redirects to the login page
+    $crawler = $client->followRedirect();
 
-        // redirect to the original page (but now authenticated)
-        $crawler = $client->followRedirect();
+    // submits the login form
+    $form = $crawler->selectButton('Login')->form(array('_username' => 'admin', '_password' => 'adminpass'));
+    $client->submit($form);
 
-        // check that the page is the right one
-        $this->assertCount(1, $crawler->filter('h1.title:contains("Hello World!")'));
+    // redirect to the original page (but now authenticated)
+    $crawler = $client->followRedirect();
 
-        // click on the secure link
-        $link = $crawler->selectLink('Hello resource secured')->link();
-        $crawler = $client->click($link);
+    // check that the page is the right one
+    $this->assertCount(1, $crawler->filter('h1.title:contains("Hello World!")'));
 
-        // check that the page is the right one
-        $this->assertCount(1, $crawler->filter('h1.title:contains("secured for Admins only!")'));
-    }
+    // click on the secure link
+    $link = $crawler->selectLink('Hello resource secured')->link();
+    $crawler = $client->click($link);
+
+    // check that the page is the right one
+    $this->assertCount(1, $crawler->filter('h1.title:contains("secured for Admins only!")'));
+  }
+
 }

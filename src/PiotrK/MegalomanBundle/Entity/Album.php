@@ -1,8 +1,10 @@
 <?php
 
 namespace PiotrK\MegalomanBundle\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  *
  *
@@ -12,10 +14,11 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Album {
 
-  public function __construct(){
+  public function __construct() {
     $this->artists = new ArrayCollection();
     $this->discography = new ArrayCollection();
   }
+
   /**
    * @ORM\Column(type="integer")
    * @ORM\Id
@@ -27,18 +30,18 @@ class Album {
    * @ORM\Column(type="string", length=255)
    */
   protected $name;
-  
+
   /**
    * @ORM\ManyToMany(targetEntity="Discography", mappedBy="albums")
    */
   protected $discography;
 
   /**
-    * @ORM\ManyToMany(targetEntity="Artist", inversedBy="albums")
-    * @ORM\JoinTable(name="album_artists",
-    *     joinColumns={@ORM\JoinColumn(name="album_id", referencedColumnName="id")},
-    *     inverseJoinColumns={@ORM\JoinColumn(name="artist_id", referencedColumnName="id")})
-  */
+   * @ORM\ManyToMany(targetEntity="Artist", inversedBy="albums")
+   * @ORM\JoinTable(name="album_artists",
+   *     joinColumns={@ORM\JoinColumn(name="album_id", referencedColumnName="id")},
+   *     inverseJoinColumns={@ORM\JoinColumn(name="artist_id", referencedColumnName="id")})
+   */
   protected $artists;
 
   /**
@@ -56,7 +59,7 @@ class Album {
    * @param string  $name
    * @return Album
    */
-  public function setName( $name ) {
+  public function setName($name) {
     $this->name = $name;
 
     return $this;
@@ -71,86 +74,80 @@ class Album {
     return $this->name;
   }
 
-    /**
-     * Set discography
-     *
-     * @param \PiotrK\MegalomanBundle\Entity\Discography $discography
-     * @return Album
-     */
-    public function setDiscography(\PiotrK\MegalomanBundle\Entity\Discography $discography = null)
-    {
-        $this->discography = $discography;
+  /**
+   * Set discography
+   *
+   * @param \PiotrK\MegalomanBundle\Entity\Discography $discography
+   * @return Album
+   */
+  public function setDiscography(\PiotrK\MegalomanBundle\Entity\Discography $discography = null) {
+    $this->discography = $discography;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get discography
-     *
-     * @return \PiotrK\MegalomanBundle\Entity\Discography 
-     */
-    public function getDiscography()
-    {
-        return $this->discography;
-    }
+  /**
+   * Get discography
+   *
+   * @return \PiotrK\MegalomanBundle\Entity\Discography 
+   */
+  public function getDiscography() {
+    return $this->discography;
+  }
 
-    /**
-     * Add artists
-     *
-     * @param \PiotrK\MegalomanBundle\Entity\Artist $artists
-     * @return Album
-     */
-    public function addArtist(\PiotrK\MegalomanBundle\Entity\Artist $artists)
-    {
-        $this->artists[] = $artists;
+  /**
+   * Add artists
+   *
+   * @param \PiotrK\MegalomanBundle\Entity\Artist $artists
+   * @return Album
+   */
+  public function addArtist(\PiotrK\MegalomanBundle\Entity\Artist $artists) {
+    $this->artists[] = $artists;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Remove artists
-     *
-     * @param \PiotrK\MegalomanBundle\Entity\Artist $artists
-     */
-    public function removeArtist(\PiotrK\MegalomanBundle\Entity\Artist $artists)
-    {
-        $this->artists->removeElement($artists);
-    }
+  /**
+   * Remove artists
+   *
+   * @param \PiotrK\MegalomanBundle\Entity\Artist $artists
+   */
+  public function removeArtist(\PiotrK\MegalomanBundle\Entity\Artist $artists) {
+    $this->artists->removeElement($artists);
+  }
 
-    /**
-     * Get artists
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getArtists()
-    {
-        return $this->artists;
-    }
+  /**
+   * Get artists
+   *
+   * @return \Doctrine\Common\Collections\Collection 
+   */
+  public function getArtists() {
+    return $this->artists;
+  }
 
-    public function __toString(){
-      return $this->name;
-    }
+  public function __toString() {
+    return $this->name;
+  }
 
-    /**
-     * Add discography
-     *
-     * @param \PiotrK\MegalomanBundle\Entity\Album $discography
-     * @return Album
-     */
-    public function addDiscography(\PiotrK\MegalomanBundle\Entity\Album $discography)
-    {
-        $this->discography[] = $discography;
+  /**
+   * Add discography
+   *
+   * @param \PiotrK\MegalomanBundle\Entity\Album $discography
+   * @return Album
+   */
+  public function addDiscography(\PiotrK\MegalomanBundle\Entity\Album $discography) {
+    $this->discography[] = $discography;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Remove discography
-     *
-     * @param \PiotrK\MegalomanBundle\Entity\Album $discography
-     */
-    public function removeDiscography(\PiotrK\MegalomanBundle\Entity\Album $discography)
-    {
-        $this->discography->removeElement($discography);
-    }
+  /**
+   * Remove discography
+   *
+   * @param \PiotrK\MegalomanBundle\Entity\Album $discography
+   */
+  public function removeDiscography(\PiotrK\MegalomanBundle\Entity\Album $discography) {
+    $this->discography->removeElement($discography);
+  }
+
 }

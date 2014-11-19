@@ -1,36 +1,27 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h3>Artyści</h3>
-
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ entity.name }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ entity.lastName }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-        <ul class="list-unstyled">
+  <h3>{{entity}}</h3>
+  {% if entity.albums %}
+    <ul class="list-unstyled">
+    {% for album in entity.albums %}
+      <li>
+        <a href="{{path('album_show', {'id': album.id})}}">{{album}}</a>
+      </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+  <ul class="list-unstyled">
     <li>
-        <a href="{{ path('artist') }}">
-            Wróć do listy
-        </a>
+      <a href="{{ path('artist') }}">
+        Wróć do listy
+      </a>
     </li>
     <li>
-        <a href="{{ path('artist_edit', { 'id': entity.id }) }}">
-            Edytuj
-        </a>
+      <a href="{{ path('artist_edit', { 'id': entity.id }) }}">
+        Edytuj
+      </a>
     </li>
     <li>{{ form(delete_form) }}</li>
-</ul>
+  </ul>
 {% endblock %}

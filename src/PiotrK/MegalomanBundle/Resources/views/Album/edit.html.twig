@@ -1,16 +1,16 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h3>Album edit</h3>
+  <h3>Edycja albumu</h3>
 
-    {{ form(edit_form) }}
+  {{ form(edit_form) }}
 
-        <ul class="list-unstyled">
+  <ul class="list-unstyled">
     <li>
-        <a href="{{ path('album') }}">
-            Back to the list
-        </a>
+      <a href="{{ path('album') }}">
+        Wróć do listy
+      </a>
     </li>
     <li>{{ form(delete_form) }}</li>
-</ul>
+  </ul>
 {% endblock %}
