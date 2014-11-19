@@ -1,14 +1,14 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-  <h3>Megaloman {{entity}} edit</h3>
+  <h3>Edycja megalomana</h3>
 
   {{ form(edit_form) }}
 
   <ul class="list-unstyled">
     <li>
       <a href="{{ path('megaloman') }}">
-        Back to the list
+        Wróć do listy
       </a>
     </li>
     <li>{{ form(delete_form) }}</li>

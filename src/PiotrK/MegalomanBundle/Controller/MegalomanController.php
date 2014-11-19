@@ -67,7 +67,7 @@ class MegalomanController extends Controller {
         'method' => 'POST',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Create'));
+    $form->add('submit', 'submit', array('label' => 'Utwórz'));
 
     return $form;
   }
@@ -143,7 +143,7 @@ class MegalomanController extends Controller {
         'method' => 'PUT',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Update'));
+    $form->add('submit', 'submit', array('label' => 'Zapisz'));
 
     return $form;
   }
@@ -212,7 +212,7 @@ class MegalomanController extends Controller {
     return $this->createFormBuilder()
                     ->setAction($this->generateUrl('megaloman_delete', array('id' => $id)))
                     ->setMethod('DELETE')
-                    ->add('submit', 'submit', array('label' => 'Delete'))
+                    ->add('submit', 'submit', array('label' => 'Usuń'))
                     ->getForm()
     ;
   }
