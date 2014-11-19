@@ -4,7 +4,7 @@ namespace PiotrK\MegalomanBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  *
  *
@@ -28,6 +28,7 @@ class Album {
 
   /**
    * @ORM\Column(type="string", length=255)
+   * @Assert\NotBlank()
    */
   protected $name;
 
