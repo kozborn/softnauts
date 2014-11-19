@@ -16,7 +16,12 @@ class DiscographyType extends AbstractType
     {
         $builder
             ->add('owner')
-            ->add('albums')
+            ->add('albums', null, array(
+                'label' => 'Albumy',
+                'required' => false,
+                'expanded' => true,
+                'multiple' => true,
+                ))
         ;
     }
     /**
