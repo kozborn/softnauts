@@ -1,14 +1,14 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Discography edit</h1>
+    <h3>Edycja dyskografii</h3>
 
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
+        <ul class="list=unstyled">
     <li>
         <a href="{{ path('discography') }}">
-            Back to the list
+            Wróć do listy
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>

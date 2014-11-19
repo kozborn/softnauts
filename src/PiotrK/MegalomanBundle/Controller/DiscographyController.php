@@ -29,64 +29,7 @@ class DiscographyController extends Controller
             'entities' => $entities,
         ));
     }
-    /**
-     * Creates a new Discography entity.
-     *
-     */
-    public function createAction(Request $request)
-    {
-        $entity = new Discography();
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('discography_show', array('id' => $entity->getId())));
-        }
-
-        return $this->render('MegalomanBundle:Discography:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
-    }
-
-    /**
-     * Creates a form to create a Discography entity.
-     *
-     * @param Discography $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(Discography $entity)
-    {
-        $form = $this->createForm(new DiscographyType(), $entity, array(
-            'action' => $this->generateUrl('discography_create'),
-            'method' => 'POST',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
-        return $form;
-    }
-
-    /**
-     * Displays a form to create a new Discography entity.
-     *
-     */
-    public function newAction()
-    {
-        $entity = new Discography();
-        $form   = $this->createCreateForm($entity);
-
-        return $this->render('MegalomanBundle:Discography:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
-    }
-
+    
     /**
      * Finds and displays a Discography entity.
      *

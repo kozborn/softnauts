@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Artist</h1>
+    <h3>Artyści</h3>
 
     <table class="record_properties">
         <tbody>
@@ -20,15 +20,15 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
+        <ul class="list-unstyled">
     <li>
         <a href="{{ path('artist') }}">
-            Back to the list
+            Wróć do listy
         </a>
     </li>
     <li>
         <a href="{{ path('artist_edit', { 'id': entity.id }) }}">
-            Edit
+            Edytuj
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>

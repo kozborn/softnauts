@@ -1,9 +1,9 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Album list</h1>
+    <h3>Lista albumów</h3>
 
-    <table class="records_list">
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -17,12 +17,12 @@
                 <td><a href="{{ path('album_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.name }}</td>
                 <td>
-                <ul>
+                <ul class="list-unstyled">
                     <li>
-                        <a href="{{ path('album_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('album_show', { 'id': entity.id }) }}">pokaż</a>
                     </li>
                     <li>
-                        <a href="{{ path('album_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('album_edit', { 'id': entity.id }) }}">edytuj</a>
                     </li>
                 </ul>
                 </td>
@@ -31,10 +31,10 @@
         </tbody>
     </table>
 
-        <ul>
+        <ul class="list-unstyled">
         <li>
             <a href="{{ path('album_new') }}">
-                Create a new entry
+                dodaj nowy album
             </a>
         </li>
     </ul>

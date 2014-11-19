@@ -1,15 +1,15 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Artist list</h1>
+    <h3>Lista artystów</h3>
 
-    <table class="records_list">
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Lastname</th>
-                <th>Actions</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -19,12 +19,12 @@
                 <td>{{ entity.name }}</td>
                 <td>{{ entity.lastName }}</td>
                 <td>
-                <ul>
+                <ul class="list-unstyled">
                     <li>
-                        <a href="{{ path('artist_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('artist_show', { 'id': entity.id }) }}">pokaż</a>
                     </li>
                     <li>
-                        <a href="{{ path('artist_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('artist_edit', { 'id': entity.id }) }}">edytuj</a>
                     </li>
                 </ul>
                 </td>
@@ -33,10 +33,10 @@
         </tbody>
     </table>
 
-        <ul>
+        <ul class="list-unstyled">
         <li>
             <a href="{{ path('artist_new') }}">
-                Create a new entry
+                dodaj nowego artystę
             </a>
         </li>
     </ul>
