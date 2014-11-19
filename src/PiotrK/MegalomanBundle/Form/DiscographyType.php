@@ -18,7 +18,6 @@ class DiscographyType extends AbstractType
             ->add('owner')
         ;
     }
-    
     /**
      * @param OptionsResolverInterface $resolver
      */

@@ -3,7 +3,7 @@
 namespace PiotrK\MegalomanBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  *
  *
@@ -21,7 +21,7 @@ class Discography {
   protected $id;
 
   /**
-    * @ORM\OneToOne(targetEntity="Megaloman")
+    * @ORM\OneToOne(targetEntity="Megaloman", mappedBy="discography")
   */
   protected $owner;
 

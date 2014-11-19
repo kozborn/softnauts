@@ -25,7 +25,7 @@ class Megaloman {
   protected $id;
 
   /**
-     * @ORM\OneToOne(targetEntity="Discography")
+     * @ORM\OneToOne(targetEntity="Discography", inversedBy="owner", cascade={"all"})
   */
   protected $discography;
 
@@ -88,4 +88,8 @@ class Megaloman {
     {
         return $this->discography;
     }
+
+  public function __toString(){
+    return $this->name;
+  }
 }

@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use PiotrK\MegalomanBundle\Entity\Megaloman;
+use PiotrK\MegalomanBundle\Entity\Discography;
 use PiotrK\MegalomanBundle\Form\MegalomanType;
 
 /**
@@ -40,6 +41,9 @@ class MegalomanController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $discography = new Discography();
+            $discography->setOwner($entity);
+            $entity->setDiscography($discography);
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();

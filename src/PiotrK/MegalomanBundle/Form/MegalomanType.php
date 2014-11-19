@@ -16,7 +16,6 @@ class MegalomanType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('discography')
         ;
     }
     

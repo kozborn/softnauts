@@ -12,8 +12,4 @@ megaloman_discography:
 
 megaloman_megaloman:
     resource: "@MegalomanBundle/Resources/config/routing/megaloman.yml"
-    prefix:   /megaloman
-
-megaloman_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: MegalomanBundle:Default:index }
+    prefix:   /
