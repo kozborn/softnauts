@@ -1,9 +1,21 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h3>Dyskografia {{entity}}</h3>
+    <h3>Dyskografia {{entity.owner}}</h3>
+
     {{ include("MegalomanBundle:Discography:discography-table.html.twig" , {'discography': entity} )}}
-    <a href="{{ path('discography') }}">
-        Wróć do listy dyskografii
-    </a>
+
+        <ul class="list-unstyled">
+            <li>
+                <a href="{{ path('discography') }}">
+                    Back to the list
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('discography_edit', { 'id': entity.id }) }}">
+                    Edit
+                </a>
+            </li>
+            <li>{{ form(delete_form) }}</li>
+        </ul>
 {% endblock %}

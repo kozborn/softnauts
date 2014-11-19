@@ -26,9 +26,9 @@ class Discography {
   protected $owner;
 
   /**
-   * @ORM\ManyToMany(targetEntity="Discography", inversedBy="discography")
+   * @ORM\ManyToMany(targetEntity="Album", inversedBy="discography")
    * @ORM\JoinTable(name="discography_albums",
-     *     joinColumns={@ORM\JoinColumn(name="discograpy_id", referencedColumnName="id")},
+     *     joinColumns={@ORM\JoinColumn(name="discography_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="album_id", referencedColumnName="id")}
      *)
    */

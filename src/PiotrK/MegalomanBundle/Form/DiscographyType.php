@@ -16,6 +16,7 @@ class DiscographyType extends AbstractType
     {
         $builder
             ->add('owner')
+            ->add('albums')
         ;
     }
     /**

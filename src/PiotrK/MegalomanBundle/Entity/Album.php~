@@ -29,7 +29,7 @@ class Album {
   protected $name;
   
   /**
-   * @ORM\ManyToMany(targetEntity="Album", mappedBy="discography")
+   * @ORM\ManyToMany(targetEntity="Discography", mappedBy="albums")
    */
   protected $discography;
 
