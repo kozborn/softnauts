@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="megaloman")
+* @ORM\Entity(repositoryClass="PiotrK\MegalomanBundle\Entity\MegalomanRepository")
  */
 
 class Megaloman {
@@ -64,4 +65,27 @@ class Megaloman {
   public function getName() {
     return $this->name;
   }
+
+    /**
+     * Set discography
+     *
+     * @param \PiotrK\MegalomanBundle\Entity\Discography $discography
+     * @return Megaloman
+     */
+    public function setDiscography(\PiotrK\MegalomanBundle\Entity\Discography $discography = null)
+    {
+        $this->discography = $discography;
+
+        return $this;
+    }
+
+    /**
+     * Get discography
+     *
+     * @return \PiotrK\MegalomanBundle\Entity\Discography 
+     */
+    public function getDiscography()
+    {
+        return $this->discography;
+    }
 }

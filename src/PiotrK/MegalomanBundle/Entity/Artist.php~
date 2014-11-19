@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="artist")
+  * @ORM\Entity(repositoryClass="PiotrK\MegalomanBundle\Entity\ArtistRepository")
  */
 class Artist {
 
@@ -95,5 +96,38 @@ class Artist {
     public function getLastName()
     {
         return $this->lastName;
+    }
+
+    /**
+     * Add albums
+     *
+     * @param \PiotrK\MegalomanBundle\Entity\Album $albums
+     * @return Artist
+     */
+    public function addAlbum(\PiotrK\MegalomanBundle\Entity\Album $albums)
+    {
+        $this->albums[] = $albums;
+
+        return $this;
+    }
+
+    /**
+     * Remove albums
+     *
+     * @param \PiotrK\MegalomanBundle\Entity\Album $albums
+     */
+    public function removeAlbum(\PiotrK\MegalomanBundle\Entity\Album $albums)
+    {
+        $this->albums->removeElement($albums);
+    }
+
+    /**
+     * Get albums
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAlbums()
+    {
+        return $this->albums;
     }
 }

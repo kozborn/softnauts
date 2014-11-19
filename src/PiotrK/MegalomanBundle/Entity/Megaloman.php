@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="megaloman")
+* @ORM\Entity(repositoryClass="PiotrK\MegalomanBundle\Entity\MegalomanRepository")
  */
 
 class Megaloman {

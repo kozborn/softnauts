@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="album")
+ * @ORM\Entity(repositoryClass="PiotrK\MegalomanBundle\Entity\AlbumRepository")
  */
 class Album {
 
@@ -67,4 +68,60 @@ class Album {
   public function getName() {
     return $this->name;
   }
+
+    /**
+     * Set discography
+     *
+     * @param \PiotrK\MegalomanBundle\Entity\Discography $discography
+     * @return Album
+     */
+    public function setDiscography(\PiotrK\MegalomanBundle\Entity\Discography $discography = null)
+    {
+        $this->discography = $discography;
+
+        return $this;
+    }
+
+    /**
+     * Get discography
+     *
+     * @return \PiotrK\MegalomanBundle\Entity\Discography 
+     */
+    public function getDiscography()
+    {
+        return $this->discography;
+    }
+
+    /**
+     * Add artists
+     *
+     * @param \PiotrK\MegalomanBundle\Entity\Artist $artists
+     * @return Album
+     */
+    public function addArtist(\PiotrK\MegalomanBundle\Entity\Artist $artists)
+    {
+        $this->artists[] = $artists;
+
+        return $this;
+    }
+
+    /**
+     * Remove artists
+     *
+     * @param \PiotrK\MegalomanBundle\Entity\Artist $artists
+     */
+    public function removeArtist(\PiotrK\MegalomanBundle\Entity\Artist $artists)
+    {
+        $this->artists->removeElement($artists);
+    }
+
+    /**
+     * Get artists
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getArtists()
+    {
+        return $this->artists;
+    }
 }

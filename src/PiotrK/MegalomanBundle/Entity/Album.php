@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="album")
+ * @ORM\Entity(repositoryClass="PiotrK\MegalomanBundle\Entity\AlbumRepository")
  */
 class Album {
 
