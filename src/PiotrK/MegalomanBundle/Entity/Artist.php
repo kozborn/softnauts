@@ -30,17 +30,13 @@ class Artist {
   protected $lastName;
 
   /**
-   * @ORM\ManyToMany(targetEntity="Album", inversedBy="artists", cascade={"persist"})
-   * @ORM\JoinTable(name="album_artist",
-   * joinColumns={@ORM\JoinColumn(name="artist_id", referencedColumnName="id")},
-   * inverseJoinColumns={@ORM\JoinColumn(name="album_id", referencedColumnName="id")}
-   * )
-  */
+   * @ORM\ManyToMany(targetEntity="Album", mappedBy="artists")
+   */
   protected $albums;
 
 
   public function __construct(){
-    $this->$albums = new ArrayCollection();
+    $this->albums = new ArrayCollection();
   }
 
     /**
@@ -130,5 +126,9 @@ class Artist {
     public function getAlbums()
     {
         return $this->albums;
+    }
+
+    public function __toString(){
+      return $this->name." ".$this->lastName;
     }
 }

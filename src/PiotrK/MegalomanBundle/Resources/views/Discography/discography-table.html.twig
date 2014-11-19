@@ -1,0 +1,26 @@
+{% if discography %}
+<table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Album</th>
+        <th>Artyści</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for album in discography.albums %}
+        <tr>
+          <td>{{album.id}}</td>
+          <td>{{album.name}}</td>
+          <td>
+            <ul class="list-unstyled">
+              {% for artist in album.artists %}
+                <li>{{artist}}</li>
+              {% endfor %}
+            </ul>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}

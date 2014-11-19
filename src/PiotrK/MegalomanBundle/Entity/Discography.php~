@@ -3,7 +3,7 @@
 namespace PiotrK\MegalomanBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  *
  *
@@ -21,12 +21,15 @@ class Discography {
   protected $id;
 
   /**
-    * @ORM\OneToOne(targetEntity="Megaloman")
+    * @ORM\OneToOne(targetEntity="Megaloman", mappedBy="discography")
   */
   protected $owner;
 
   /**
-   * @ORM\OneToMany(targetEntity="Album", mappedBy="discography")
+   * @ORM\ManyToMany(targetEntity="Discography", inversedBy="albums")
+   * @ORM\JoinTable(name="discography_albums",
+     *     joinColumns={@ORM\JoinColumn(name="discograpy_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="album_id", referencedColumnName="id")})
    */
   protected $albums;
 
@@ -97,5 +100,9 @@ class Discography {
     public function getAlbums()
     {
         return $this->albums;
+    }
+
+    public function __toString(){
+      return $this->getOwner()->getName();
     }
 }

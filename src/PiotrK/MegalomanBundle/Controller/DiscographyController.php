@@ -43,11 +43,8 @@ class DiscographyController extends Controller
             throw $this->createNotFoundException('Unable to find Discography entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('MegalomanBundle:Discography:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 }

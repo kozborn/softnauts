@@ -1,11 +1,11 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Megaloman edit</h1>
+    <h3>Megaloman {{entity}} edit</h3>
 
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
+        <ul class="list-unstyled">
     <li>
         <a href="{{ path('megaloman') }}">
             Back to the list

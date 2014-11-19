@@ -1,28 +1,9 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Discography</h1>
-
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('discography') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('discography_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <h3>Dyskografia {{entity}}</h3>
+    {{ include("MegalomanBundle:Discography:discography-table.html.twig" , {'discography': entity} )}}
+    <a href="{{ path('discography') }}">
+        Wróć do listy dyskografii
+    </a>
 {% endblock %}

@@ -14,6 +14,7 @@ class Album {
 
   public function __construct(){
     $this->artists = new ArrayCollection();
+    $this->discography = new ArrayCollection();
   }
   /**
    * @ORM\Column(type="integer")
@@ -23,19 +24,20 @@ class Album {
   protected $id;
 
   /**
-   *
-   *
    * @ORM\Column(type="string", length=255)
    */
   protected $name;
+  
   /**
-   * @ORM\ManyToOne(targetEntity="Discography", inversedBy="albums")
-   * @ORM\JoinColumn(name="discography_id", referencedColumnName="id")
+   * @ORM\ManyToMany(targetEntity="Discography", mappedBy="albums")
    */
   protected $discography;
 
   /**
-    * @ORM\ManyToMany(targetEntity="Artist", mappedBy="albums", cascade={"persist"})
+    * @ORM\ManyToMany(targetEntity="Artist", inversedBy="albums")
+    * @ORM\JoinTable(name="album_artists",
+    *     joinColumns={@ORM\JoinColumn(name="album_id", referencedColumnName="id")},
+    *     inverseJoinColumns={@ORM\JoinColumn(name="artist_id", referencedColumnName="id")})
   */
   protected $artists;
 
@@ -123,5 +125,32 @@ class Album {
     public function getArtists()
     {
         return $this->artists;
+    }
+
+    public function __toString(){
+      return $this->name;
+    }
+
+    /**
+     * Add discography
+     *
+     * @param \PiotrK\MegalomanBundle\Entity\Album $discography
+     * @return Album
+     */
+    public function addDiscography(\PiotrK\MegalomanBundle\Entity\Album $discography)
+    {
+        $this->discography[] = $discography;
+
+        return $this;
+    }
+
+    /**
+     * Remove discography
+     *
+     * @param \PiotrK\MegalomanBundle\Entity\Album $discography
+     */
+    public function removeDiscography(\PiotrK\MegalomanBundle\Entity\Album $discography)
+    {
+        $this->discography->removeElement($discography);
     }
 }

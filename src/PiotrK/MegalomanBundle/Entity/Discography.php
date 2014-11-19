@@ -26,7 +26,11 @@ class Discography {
   protected $owner;
 
   /**
-   * @ORM\OneToMany(targetEntity="Album", mappedBy="discography")
+   * @ORM\ManyToMany(targetEntity="Discography", inversedBy="discography")
+   * @ORM\JoinTable(name="discography_albums",
+     *     joinColumns={@ORM\JoinColumn(name="discograpy_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="album_id", referencedColumnName="id")}
+     *)
    */
   protected $albums;
 
@@ -97,5 +101,9 @@ class Discography {
     public function getAlbums()
     {
         return $this->albums;
+    }
+
+    public function __toString(){
+      return $this->getOwner()->getName();
     }
 }
