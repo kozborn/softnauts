@@ -11,5 +11,15 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class AlbumRepository extends EntityRepository {
-  
+
+  public function findAlbumsByArtist($artistNeedle){
+    $qb = $this->createQueryBuilder('a')
+            ->select('a')
+            ->leftJoin('a.artists', 'artist')
+            ->where("artist.name LIKE :needle OR artist.lastName LIKE :needle")
+            ->setParameter('needle',"%".$artistNeedle."%")
+            ->getQuery()
+            ;
+    return $qb->getResult();
+  }
 }

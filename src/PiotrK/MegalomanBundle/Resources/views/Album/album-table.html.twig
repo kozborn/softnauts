@@ -1,0 +1,41 @@
+ <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nazwa albumu</th>
+        <th>Artyści</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for album in albums %}
+        <tr>
+          <td><a href="{{ path('album_show', { 'id': album.id }) }}">{{ album.id }}</a></td>
+          <td>
+            <a href="{{path('album_show', {'id': album.id})}}">{{ album.name }}</a>
+          </td>
+          <td>
+            {% if album.artists|length > 0 %}
+            <ul class="list-unstyled">
+              {% for artist in album.artists %}
+                <li>
+                  <a href="{{path('artist_show', {'id':artist.id})}}">{{artist}}</a>
+                </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </td>
+          <td>
+            <ul class="list-unstyled">
+              <li>
+                <a href="{{ path('album_show', { 'id': album.id }) }}">pokaż</a>
+              </li>
+              <li>
+                <a href="{{ path('album_edit', { 'id': album.id }) }}">edytuj</a>
+              </li>
+            </ul>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>

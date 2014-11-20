@@ -28,3 +28,8 @@ album_delete:
     path:     /{id}/delete
     defaults: { _controller: "MegalomanBundle:Album:delete" }
     requirements: { _method: post|delete }
+    
+album_search:
+    path: /search
+    defaults: {_controller: "MegalomanBundle:Album:search"}
+    requirements: { _method: post}

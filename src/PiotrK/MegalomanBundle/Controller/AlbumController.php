@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use PiotrK\MegalomanBundle\Entity\Album;
 use PiotrK\MegalomanBundle\Form\AlbumType;
+use PiotrK\MegalomanBundle\Form\SearchType;
 
 /**
  * Album controller.
@@ -21,9 +22,9 @@ class AlbumController extends Controller {
     $em = $this->getDoctrine()->getManager();
 
     $entities = $em->getRepository('MegalomanBundle:Album')->findAll();
-
-    return $this->render('MegalomanBundle:Album:index.html.twig', array(
+        return $this->render('MegalomanBundle:Album:index.html.twig', array(
                 'entities' => $entities,
+                ''
     ));
   }
 
@@ -211,6 +212,18 @@ class AlbumController extends Controller {
                     ->add('submit', 'submit', array('label' => 'Usuń'))
                     ->getForm()
     ;
+  }
+
+  public function searchAction(Request $request){
+    $filters = $request->request->all();
+    $em = $this->getDoctrine()->getManager();
+
+    $albums = $em->getRepository('MegalomanBundle:Album')->findAlbumsByArtist($filters);
+
+
+    return $this->render('MegalomanBundle:Album:album-table.html.twig', array(
+                'albums' => $albums,
+    ));
   }
 
 }

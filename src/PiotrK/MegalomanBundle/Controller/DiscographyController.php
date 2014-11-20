@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use PiotrK\MegalomanBundle\Entity\Discography;
 use PiotrK\MegalomanBundle\Form\DiscographyType;
+use PiotrK\MegalomanBundle\Form\SearchType;
 
 /**
  * Discography controller.
@@ -35,16 +36,30 @@ class DiscographyController extends Controller {
     $em = $this->getDoctrine()->getManager();
 
     $entity = $em->getRepository('MegalomanBundle:Discography')->find($id);
+    if (!$entity) {
+      throw $this->createNotFoundException('Unable to find Discography entity.');
+    }
+
+    $searchForm = $this->createForm(new SearchType());
+
+    return $this->render('MegalomanBundle:Discography:show.html.twig', array(
+                'entity' => $entity,
+                'search_form' => $searchForm->createView(),
+    ));
+  }
+
+  public function searchAction(Request $request, $id){
+    $filters = $request->request->all();
+    $em = $this->getDoctrine()->getManager();
+
+    $entity = $em->getRepository('MegalomanBundle:Discography')->findAlbums($id, $filters);
 
     if (!$entity) {
       throw $this->createNotFoundException('Unable to find Discography entity.');
     }
 
-    $deleteForm = $this->createDeleteForm($id);
-
-    return $this->render('MegalomanBundle:Discography:show.html.twig', array(
-                'entity' => $entity,
-                'delete_form' => $deleteForm->createView(),
+    return $this->render('MegalomanBundle:Discography:discography-table.html.twig', array(
+                'discography' => $entity,
     ));
   }
 

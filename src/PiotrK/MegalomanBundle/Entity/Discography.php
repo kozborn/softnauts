@@ -81,6 +81,11 @@ class Discography {
     return $this;
   }
 
+  public function setAlbums(ArrayCollection $albums){
+    $this->albums = $albums;
+    return $this;
+  }
+
   /**
    * Remove albums
    *

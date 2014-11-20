@@ -20,6 +20,9 @@
     </nav>
     {% block body %}{% endblock %}
   </div>
-  {% block javascripts %}{% endblock %}
+  {% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/megaloman/js/jquery-1.11.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/megaloman/js/scripts.js') }}"></script>
+  {% endblock %}
 </body>
 </html>

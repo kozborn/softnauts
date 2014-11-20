@@ -6,15 +6,6 @@ discography_show:
     path:     /{id}/show
     defaults: { _controller: "MegalomanBundle:Discography:show" }
 
-discography_new:
-    path:     /new
-    defaults: { _controller: "MegalomanBundle:Discography:new" }
-
-discography_create:
-    path:     /create
-    defaults: { _controller: "MegalomanBundle:Discography:create" }
-    requirements: { _method: post }
-
 discography_edit:
     path:     /{id}/edit
     defaults: { _controller: "MegalomanBundle:Discography:edit" }
@@ -23,3 +14,8 @@ discography_update:
     path:     /{id}/update
     defaults: { _controller: "MegalomanBundle:Discography:update" }
     requirements: { _method: post|put }
+
+discography_search:
+    path:     /{id}/search
+    defaults: { _controller: "MegalomanBundle:Discography:search" }
+    requirements: { _method: post }

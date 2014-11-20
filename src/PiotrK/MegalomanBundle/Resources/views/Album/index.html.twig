@@ -3,47 +3,7 @@
 {% block body -%}
   <h3>Lista albumów</h3>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Nazwa albumu</th>
-        <th>Artyści</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for entity in entities %}
-        <tr>
-          <td><a href="{{ path('album_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-          <td>
-            <a href="{{path('album_show', {'id': entity.id})}}">{{ entity.name }}</a>
-          </td>
-          <td>
-            {% if entity.artists|length > 0 %}
-            <ul class="list-unstyled">
-              {% for artist in entity.artists %}
-                <li>
-                  <a href="{{path('artist_show', {'id':artist.id})}}">{{artist}}</a>
-                </li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-          </td>
-          <td>
-            <ul class="list-unstyled">
-              <li>
-                <a href="{{ path('album_show', { 'id': entity.id }) }}">pokaż</a>
-              </li>
-              <li>
-                <a href="{{ path('album_edit', { 'id': entity.id }) }}">edytuj</a>
-              </li>
-            </ul>
-          </td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+ {{ include("MegalomanBundle:Album:album-table.html.twig" , {'albums': entities} )}}
 
   <ul class="list-unstyled">
     <li>
