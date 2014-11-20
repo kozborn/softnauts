@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-  <h3>Dyskografia {{entity.owner}}</h3>
+  <h3>Kolekcja {{entity.owner}}</h3>
   <div class="search-form">
     <form id="search" method="POST" action="{{ path('discography_search', {'id': entity.id }) }}">
       {{ form_start(search_form) }}
